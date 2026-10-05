@@ -1,0 +1,13 @@
+{
+  "name": "qr-screenshot-reader",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check app.js && node --check qr-utils.js && node --test"
+  },
+  "devDependencies": {
+    "pngjs": "^7.0.0"
+  }
+}

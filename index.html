@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101820">
+  <meta name="description" content="QR 코드가 담긴 스크린샷을 브라우저에서 바로 읽고, 웹주소라면 안전하게 링크로 표시합니다.">
+  <title>QR 스크린샷 리더</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="QR 스크린샷 리더 홈">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>QR 스크린샷 리더</span>
+    </a>
+    <span class="privacy-badge">브라우저 안에서만 처리</span>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">SCREENSHOT → LINK</p>
+      <h1 id="page-title">QR이 있는 이미지를<br>여기에 놓으세요.</h1>
+      <p class="lede">스크린샷이나 사진에서 QR 정보를 추출합니다. 웹주소는 누를 수 있는 링크로 보여주며, 이미지는 서버에 업로드하지 않습니다.</p>
+    </section>
+
+    <section class="workspace" aria-label="QR 코드 읽기">
+      <div class="input-panel">
+        <input id="file-input" class="visually-hidden" type="file" accept="image/*">
+        <label id="drop-zone" class="drop-zone" for="file-input" tabindex="0">
+          <span class="upload-symbol" aria-hidden="true">＋</span>
+          <strong>이미지 선택</strong>
+          <span>또는 이곳에 끌어놓기</span>
+          <small>PNG · JPG · WEBP · GIF</small>
+        </label>
+        <button id="paste-button" class="secondary-button" type="button">클립보드 이미지 붙여넣기</button>
+        <p class="shortcut">PC에서는 복사한 이미지를 <kbd>Ctrl</kbd> + <kbd>V</kbd>로 바로 붙여넣을 수 있습니다.</p>
+      </div>
+
+      <div class="output-panel" aria-live="polite">
+        <div id="empty-state" class="empty-state">
+          <span class="scan-frame" aria-hidden="true"></span>
+          <strong>분석 결과가 여기에 표시됩니다</strong>
+          <p>웹주소, 일반 텍스트 등 QR에 담긴 원문을 그대로 확인할 수 있습니다.</p>
+        </div>
+
+        <div id="busy-state" class="busy-state" hidden>
+          <span class="spinner" aria-hidden="true"></span>
+          <strong>QR 코드를 찾는 중…</strong>
+        </div>
+
+        <div id="result-state" class="result-state" hidden>
+          <figure class="preview-wrap">
+            <canvas id="preview-canvas" aria-label="선택한 이미지와 인식된 QR 영역"></canvas>
+          </figure>
+          <div class="result-copy">
+            <p id="result-label" class="result-label"></p>
+            <h2 id="result-title"></h2>
+            <a id="url-result" class="url-result" href="#" target="_blank" rel="noopener noreferrer" hidden></a>
+            <pre id="text-result" class="text-result" hidden></pre>
+            <div class="result-actions">
+              <a id="open-link" class="primary-button" href="#" target="_blank" rel="noopener noreferrer" hidden>웹주소 열기</a>
+              <button id="copy-button" class="secondary-button" type="button">내용 복사</button>
+              <button id="reset-button" class="text-button" type="button">다른 이미지</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="error-state" class="error-state" hidden>
+          <span aria-hidden="true">!</span>
+          <div>
+            <strong id="error-title">QR 코드를 찾지 못했습니다</strong>
+            <p id="error-message">QR 부분이 선명하고 화면 안에 온전히 들어온 이미지를 사용해 보세요.</p>
+            <button id="retry-button" class="secondary-button" type="button">다른 이미지 선택</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="notes" aria-label="사용 안내">
+      <article><b>01</b><h2>스크린샷 선택</h2><p>휴대폰에 저장한 QR 화면이나 카메라로 찍은 이미지를 선택합니다.</p></article>
+      <article><b>02</b><h2>기기 안에서 분석</h2><p>이미지 데이터는 외부 서버로 전송하거나 저장하지 않습니다.</p></article>
+      <article><b>03</b><h2>확인 후 열기</h2><p>웹주소여도 자동으로 이동하지 않습니다. 주소를 확인하고 직접 열 수 있습니다.</p></article>
+    </section>
+  </main>
+
+  <footer>
+    <p>의심스러운 주소는 열기 전에 도메인을 확인하세요.</p>
+    <a href="https://github.com/HanTJ/qr-screenshot-reader" target="_blank" rel="noopener noreferrer">GitHub 소스</a>
+  </footer>
+
+  <script src="vendor/jsQR.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
